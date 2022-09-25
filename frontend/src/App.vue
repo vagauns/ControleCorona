@@ -1,17 +1,47 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-app id="inspire">
+    <v-system-bar>
+      <v-spacer></v-spacer>
+
+      <v-icon>mdi-square</v-icon>
+
+      <v-icon>mdi-circle</v-icon>
+
+      <v-icon>mdi-triangle</v-icon>
+    </v-system-bar>
+
+    <v-app-bar>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-app-bar>
+
+    <v-navigation-drawer v-model="drawer" temporary>
+      <!--  -->
+    </v-navigation-drawer>
+
+    <v-main class="bg-grey-lighten-2">
+      <v-container>
+        <v-row>
+          <template v-for="n in 4" :key="n">
+            <v-col class="mt-2" cols="12">
+              <strong>Category {{ n }}</strong>
+            </v-col>
+
+            <v-col v-for="j in 6" :key="`${n}${j}`" cols="6" md="2">
+              <v-sheet height="150"></v-sheet>
+            </v-col>
+          </template>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  export default {
+    data: () => ({ drawer: null }),
   }
-}
 </script>
 
 <style>
@@ -21,6 +51,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
