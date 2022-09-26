@@ -1,68 +1,64 @@
 <template>
   <v-app id="inspire">
-    <v-system-bar>
-      <v-spacer></v-spacer>
-
-      <v-icon>mdi-square</v-icon>
-
-      <v-icon>mdi-circle</v-icon>
-
-      <v-icon>mdi-triangle</v-icon>
-    </v-system-bar>
-
-    <v-app-bar>
+    <v-app-bar class="bg-green-darken-3">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>
+        <b>Controle Covid19</b>
+      </v-toolbar-title>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" temporary>
-      <!--  -->
+    <v-navigation-drawer
+      v-model="drawer"
+      temporary
+      style="padding: 0; text-align: left"
+    >
+      <v-list>
+        <v-list-item
+          prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
+          title="Alex Sandro Morais"
+          subtitle="Fiscal da Saúde"
+        ></v-list-item>
+      </v-list>
+
+      <v-divider></v-divider>
+
+      <v-list density="compact" nav>
+        <v-list-item
+          prepend-icon="mdi-account-multiple"
+          title="Pacientes"
+          value="pacientes"
+          to="/"
+        ></v-list-item>
+        <v-list-item
+          prepend-icon="mdi-file-document-edit-outline"
+          title="Exames"
+          value="exames"
+          to="/exames"
+        ></v-list-item>
+      </v-list>
     </v-navigation-drawer>
 
-    <v-main class="bg-grey-lighten-2">
+    <v-main class="bg-white-lighten-2">
       <v-container>
-        <v-row>
-          <template v-for="n in 4" :key="n">
-            <v-col class="mt-2" cols="12">
-              <strong>Category {{ n }}</strong>
-            </v-col>
-
-            <v-col v-for="j in 6" :key="`${n}${j}`" cols="6" md="2">
-              <v-sheet height="150"></v-sheet>
-            </v-col>
-          </template>
-        </v-row>
+        <router-view />
       </v-container>
     </v-main>
+    <div
+      class="d-flex justify-end align-end flex-column flex-md-row pa-5"
+    >
+      <v-btn color="warning" icon="mdi-plus" to="/register"></v-btn>
+    </div>
   </v-app>
 </template>
 
 <script>
-  export default {
-    data: () => ({ drawer: null }),
-  }
+export default {
+  data: () => ({
+    drawer: null,
+  }),
+}
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
