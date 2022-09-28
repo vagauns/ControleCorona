@@ -9,24 +9,27 @@
         <span>{{ currentTitle }}</span>
         <!-- <v-avatar color="primary" size="24" v-text="step"></v-avatar> -->
       </v-card-title>
-
       <v-window v-model="step">
         <v-window-item :value="1">
-          <IdentificacaoComponent />
+          <IdentificacaoComponent
+            v-on:identificacao="setIdentificacao($event)"
+          />
         </v-window-item>
 
         <v-window-item :value="2">
-          <ExameComponent/>
+          <ExameComponent v-on:exame="setIdentificacao($event)" />
         </v-window-item>
 
         <v-window-item :value="3">
-          <FeedbackComponent/>
+          <FeedbackComponent v-on:submit="submitForm()" />
         </v-window-item>
       </v-window>
 
       <v-card-actions>
         <div>
-            <v-btn color="warning" flat v-if="step > 1" text @click="step--"> Back </v-btn>
+          <v-btn color="warning" flat v-if="step > 1" @click="step--">
+            Back
+          </v-btn>
         </div>
         <v-spacer></v-spacer>
         <v-btn v-if="step < 3" flat color="primary" depressed @click="step++">
@@ -43,13 +46,15 @@ import FeedbackComponent from "../components/register/FeedbackComponent.vue"
 import ExameComponent from "../components/register/ExameComponent.vue"
 export default {
   name: "RegisterView",
+  props: ['pacienteId'],
   components: {
     ExameComponent,
     IdentificacaoComponent,
-    FeedbackComponent
+    FeedbackComponent,
   },
   data: () => ({
     step: 1,
+    pacientes: {},
   }),
   computed: {
     currentTitle() {
@@ -62,6 +67,26 @@ export default {
           return "Feedback"
       }
     },
-  }
+  },
+  created: function() {
+    if(this.pacienteId){
+      this.$store.commit("getPaciente", this.pacienteId);
+    }
+  },
+  methods: {
+    submitForm() {
+      if(this.pacienteId){
+
+        var update = {
+          ...this.$store.state.pacientes,
+          ...{ id: this.pacienteId }
+        }
+        this.$store.commit('editPaciente', update)
+      } else {
+        this.$store.commit('addPaciente', this.$store.state.pacientes)
+      }
+      window.location.href = "/"
+    },
+  },
 }
 </script>

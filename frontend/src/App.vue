@@ -14,7 +14,7 @@
     >
       <v-list>
         <v-list-item
-          prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
+          prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
           title="Alex Sandro Morais"
           subtitle="Fiscal da Saúde"
         ></v-list-item>
@@ -51,7 +51,7 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   data: () => ({
     drawer: null,

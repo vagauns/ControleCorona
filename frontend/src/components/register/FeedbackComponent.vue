@@ -20,6 +20,10 @@
         <v-col cols="12" md="12">
           <v-list :items="items" item-title="name" item-value="id"></v-list>
         </v-col>
+
+        <v-col cols="12" md="12" class="text-center">
+          <v-btn flat color="secondary" v-on:click="submitForm()" >Confirmar Valores</v-btn>
+        </v-col>
       </v-row>
     </v-container>
   </div>
@@ -43,6 +47,11 @@ export default {
       },
     ],
   }),
+  methods: {
+    submitForm() {
+      this.$emit('submit')
+    } 
+  }
 }
 </script>
 

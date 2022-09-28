@@ -16,6 +16,12 @@ const routes = [
     ...Pacientes.findAll,
   },
   {
+    method: "GET",
+    path: "/:id",
+    description: "get one paciente",
+    ...Pacientes.find,
+  },
+  {
     method: "DEL",
     path: "/:id",
     description: "remove paciente",

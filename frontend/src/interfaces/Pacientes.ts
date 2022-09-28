@@ -9,5 +9,4 @@ export interface IPacientes {
   travels: boolean
   contacts: boolean
   deseases: string
-  created_at: Date
 }

@@ -2,22 +2,29 @@
   <div class="home">
     <v-list lines="two" class="text-left">
       <v-list-item
-        v-for="file in files"
-        :key="file.title"
-        :title="file.title"
-        :subtitle="file.subtitle"
+        v-for="paciente in $store.state.pacientes"
+        :key="paciente.id"
+        :title="paciente.name"
+        :subtitle="`${paciente.type}  ${paciente.result}`"
       >
         <template v-slot:prepend>
-          <v-avatar :color="file.color">
-            <v-icon color="green">{{ file.icon }}</v-icon>
+          <v-avatar color="info">
+            <v-icon icon="mdi-newspaper-variant-outline"></v-icon>
           </v-avatar>
         </template>
 
         <template v-slot:append>
           <v-btn
+            color="red-darken-1"
+            icon="mdi-delete"
+            variant="text"
+            v-on:click="deletePaciente(paciente.id)"
+          ></v-btn>
+          <v-btn
             color="grey-lighten-1"
             icon="mdi-chevron-right"
             variant="text"
+            :to="`/edit/${paciente.id}`"
           ></v-btn>
         </template>
       </v-list-item>
@@ -28,21 +35,13 @@
 <script>
 export default {
   name: "HomeView",
-  data: () => ({
-    files: [
-      {
-        color: "blue",
-        icon: "mdi-text-box-outline",
-        subtitle: "Jan 20, 2014",
-        title: "Vacation itinerary",
-      },
-      {
-        color: "amber",
-        icon: "mdi-text-box-outline",
-        subtitle: "Jan 10, 2014",
-        title: "Kitchen remodel",
-      },
-    ],
-  }),
+  created() {
+    this.$store.commit("getPacientes");
+  },
+  methods: {
+    deletePaciente(id) {
+      this.$store.commit("deletePaciente", id)
+    }
+  }
 }
 </script>

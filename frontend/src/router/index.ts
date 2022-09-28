@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory } from "vue-router"
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 import HomeView from "../views/HomeView.vue"
 import ExamesView from "../views/ExamesView.vue"
 import RegisterView from "../views/RegisterView.vue"
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "home",
@@ -18,6 +18,12 @@ const routes = [
     path: "/register",
     name: "register",
     component: RegisterView,
+  },
+  {
+    path: "/edit/:id",
+    name: "edit",
+    component: RegisterView,
+    props: (route) => ({ pacienteId: route.params.id }),
   },
 ]
 
